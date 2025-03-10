@@ -1,108 +1,231 @@
-/* 全体のレイアウト */
+/* heya.css */
+
+/* 
+  ==========================================
+    リセット・ベーススタイル
+  ==========================================
+*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 body {
-    background-color: #222;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+  font-family: sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+  overflow: hidden; /* 部屋だけが表示されるように */
+}
+h1 {
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.5rem;
+  background: #fff;
+  border-bottom: 1px solid #ccc;
 }
 
-/* 部屋全体 */
+/* 
+  ==========================================
+    レイアウト
+  ==========================================
+*/
 .room {
-    position: relative;
-    width: 800px;
-    height: 500px;
-    background: linear-gradient(to top, #d3d3d3, #ffffff);
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    overflow: hidden;
-}
-
-/* 天井 */
-.ceiling {
-    width: 100%;
-    height: 20%;
-    background: linear-gradient(to bottom, #ffffff, #e0e0e0);
-}
-
-/* シャンデリア */
-.chandelier {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 100px;
-    background: radial-gradient(circle, gold, darkgoldenrod);
-    border-radius: 50%;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+  position: relative;
+  width: 100vw;
+  height: calc(100vh - 58px); /* ヘッダーの高さを差し引き */
+  overflow: hidden;
+  display: grid;
+  /* "wall" と "floor" で分割するイメージ */
+  grid-template-rows: 70% 30%;
 }
 
 /* 壁 */
-.walls {
-    display: flex;
-    height: 40%;
-    width: 100%;
-}
-
 .wall {
-    flex: 1;
-    background: linear-gradient(to bottom, #e0e0e0, #b0b0b0);
+  grid-row: 1 / 2;
+  position: relative;
+  z-index: 1; /* 家具より奥に */
+  /* 複雑な模様を表現（repeating-conic-gradient を使った例）*/
+  background: repeating-conic-gradient(
+    from 0deg,
+    rgba(230, 230, 230, 0.6) 0deg 30deg,
+    rgba(250, 250, 250, 0.8) 30deg 60deg
+  );
+  background-size: 60px 60px;
 }
 
-.wall.center {
-    position: relative;
-    background: linear-gradient(to bottom, #ffffff, #cccccc);
-}
-
-/* 幾何学模様 */
-.geometric-pattern {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 150px;
-    height: 150px;
-    transform: translate(-50%, -50%);
-    background: repeating-linear-gradient(
-        45deg,
-        #000,
-        #000 10px,
-        #555 10px,
-        #555 20px
-    );
-    clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
-}
-
-/* 床 */
+/* フロア */
 .floor {
-    position: relative;
-    height: 40%;
-    width: 100%;
-    background: linear-gradient(to bottom, #c0c0c0, #a0a0a0);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  grid-row: 2 / 3;
+  background: linear-gradient(
+    to right,
+    #b5651d,
+    #b07c35,
+    #b5651d
+  );
+  /* フロアが立体的に見えるように少し影を加える */
+  box-shadow: inset 0 0 50px rgba(0,0,0,0.3);
 }
 
-/* 円形テーブル */
-.table {
-    width: 120px;
-    height: 120px;
-    background: linear-gradient(to bottom, #8b5a2b, #5a3e1b);
-    border-radius: 50%;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
+/* 
+  ==========================================
+    家具
+  ==========================================
+*/
+.furniture {
+  position: absolute;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 2px 6px 15px rgba(0,0,0,0.3); /* 家具の影 */
+  text-align: center;
+  padding: 0.5rem;
+  z-index: 2; /* 壁より手前に */
 }
 
 /* ソファ */
 .sofa {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 200px;
-    height: 80px;
-    background: linear-gradient(to right, #6a0dad, #4b0082);
-    border-radius: 20px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  width: 200px;
+  height: 100px;
+  top: 50%;
+  left: 20%;
+  transform: translateY(-50%);
+}
+
+/* テーブル */
+.table {
+  width: 120px;
+  height: 80px;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* 
+  ==========================================
+    振り子時計
+  ==========================================
+*/
+.clock {
+  position: absolute;
+  width: 100px;
+  height: 250px;
+  top: 20%;
+  right: 15%;
+  transform: translateY(-20%);
+  z-index: 3;
+}
+
+/* 時計本体の外枠っぽいもの */
+.clock-body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #333; /* ダークな木目っぽさ */
+  border-radius: 10px;
+  box-shadow: 2px 4px 20px rgba(0,0,0,0.5) inset;
+  overflow: hidden;
+}
+
+/* 文字盤 */
+.clock-face {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 70px;
+  background: radial-gradient(#fff, #ddd);
+  border: 2px solid #666;
+  border-radius: 50%;
+}
+
+/* 文字盤中心 */
+.face-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: #000;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* 時針 */
+.hour-hand {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  width: 2px;
+  height: 15px;
+  background: #000;
+  transform-origin: 50% 80%;
+  animation: rotate-hour 12s linear infinite;
+}
+
+/* 分針 */
+.minute-hand {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  width: 2px;
+  height: 25px;
+  background: #444;
+  transform-origin: 50% 90%;
+  animation: rotate-minute 6s linear infinite;
+}
+
+/* 振り子 */
+.pendulum {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  width: 6px;
+  height: 80px;
+  background: #bbb;
+  transform-origin: top center;
+  border-radius: 3px;
+  animation: swing 2s ease-in-out infinite alternate;
+}
+
+/* 時針アニメーション */
+@keyframes rotate-hour {
+  0%   { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* 分針アニメーション */
+@keyframes rotate-minute {
+  0%   { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* 振り子のアニメーション */
+@keyframes swing {
+  0%   { transform: rotate(-20deg); }
+  100% { transform: rotate(20deg); }
+}
+
+/* 
+  ==========================================
+    CSSの条件分岐的な使い方 (@supports)
+    例: backdrop-filterが使える環境なら背景をぼかす
+  ==========================================
+*/
+@supports (backdrop-filter: blur(6px)) {
+  .wall {
+    backdrop-filter: blur(6px);
+  }
+}
+
+/*
+  ==========================================
+    :has() を使った疑似的な条件分岐
+    (一部のブラウザのみ対応)
+    例: room 要素の中に .sofa があれば何かスタイルを当てる
+  ==========================================
+*/
+.room:has(.sofa) {
+  border: 5px double #ccc;
+  padding: 10px;
 }
