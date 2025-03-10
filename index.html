@@ -1,27 +1,45 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>高級部屋レイアウト</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>高級な部屋</title>
+  <!-- heya.css を読み込む -->
+  <link rel="stylesheet" href="heya.css" />
 </head>
 <body>
-    <div class="room">
-        <div class="ceiling">
-            <div class="chandelier"></div>
-        </div>
-        <div class="walls">
-            <div class="wall left"></div>
-            <div class="wall center">
-                <div class="geometric-pattern"></div>
-            </div>
-            <div class="wall right"></div>
-        </div>
-        <div class="floor">
-            <div class="table"></div>
-            <div class="sofa"></div>
-        </div>
+  <header>
+    <h1>高級な部屋へようこそ</h1>
+  </header>
+
+  <main class="room">
+    <!-- 壁紙（複雑な模様） -->
+    <div class="wall"></div>
+    
+    <!-- フロア -->
+    <div class="floor"></div>
+
+    <!-- 高級ソファ -->
+    <div class="furniture sofa">
+      <p>ソファ</p>
     </div>
+
+    <!-- テーブル -->
+    <div class="furniture table">
+      <p>テーブル</p>
+    </div>
+
+    <!-- 振り子時計 -->
+    <div class="clock">
+      <div class="clock-body">
+        <div class="clock-face">
+          <div class="face-center"></div>
+          <div class="hour-hand"></div>
+          <div class="minute-hand"></div>
+        </div>
+        <div class="pendulum"></div>
+      </div>
+    </div>
+
+  </main>
 </body>
 </html>
