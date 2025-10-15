@@ -83,13 +83,27 @@
       vib(10);
     }
 
-    let longPressTimer; let isLong = false;
+    // 修正：タップと離すで二重カウントしないようにする
     function bindPress(el, shortDelta, longDelta){
-      const start = () => { isLong = false; longPressTimer = setTimeout(()=>{ isLong = true; step(longDelta); }, 420); };
-      const end = () => { clearTimeout(longPressTimer); if(!isLong) step(shortDelta); };
-      el.addEventListener('touchstart', start, {passive:true});
-      el.addEventListener('mousedown', start);
-      ['touchend','mouseup','mouseleave'].forEach(e=> el.addEventListener(e, end));
+      let timer; let long = false;
+      el.addEventListener('mousedown', ()=>{
+        long = false;
+        timer = setTimeout(()=>{ long=true; step(longDelta); },420);
+      });
+      el.addEventListener('mouseup', ()=>{
+        clearTimeout(timer);
+        if(!long) step(shortDelta);
+      });
+      el.addEventListener('mouseleave', ()=> clearTimeout(timer));
+
+      el.addEventListener('touchstart', ()=>{
+        long = false;
+        timer = setTimeout(()=>{ long=true; step(longDelta); },420);
+      }, {passive:true});
+      el.addEventListener('touchend', ()=>{
+        clearTimeout(timer);
+        if(!long) step(shortDelta);
+      });
     }
 
     bindPress(plusBtn, +1, +10);
@@ -111,7 +125,6 @@
       }catch(_){ /* ignore */ }
     });
 
-    // キーボード操作（PC用）
     window.addEventListener('keydown', (e)=>{
       if(e.key === '+') step(+1);
       if(e.key === '-') step(-1);
@@ -120,4 +133,3 @@
   </script>
 </body>
 </html>
-
